@@ -1,0 +1,13 @@
+containers:
+    consul:
+        setup:
+        - !Env
+          VERSION: "0.4.1_linux_amd64"
+        - !Alpine v3.1
+        - !BuildDeps [wget, go, git, gcc, musl-dev, libgcc]
+        - !Sh |
+            set -ex
+            cd /tmp
+            GOPATH=/tmp/go go get github.com/hashicorp/consul
+            GOPATH=/tmp/go go build github.com/hashicorp/consul
+            mv consul /usr/bin
